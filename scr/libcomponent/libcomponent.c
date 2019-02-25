@@ -12,6 +12,7 @@ typedef struct e12_series_
 static e12_series generate_e12_series(const float orig_resistance);
 int e_resistance(float orig_resistance, float *res_array );
 
+#ifndef HAVE_MAIN
 int main()
 {
     float res[3];
@@ -22,6 +23,7 @@ int main()
     }
    return 0;
 }
+#endif
 
 int e_resistance(float orig_resistance, float *res_array )
 {

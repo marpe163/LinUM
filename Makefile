@@ -7,6 +7,8 @@ BIN_INSTDIR = /usr/local/bin
 LIB_INSTDIR = /usr/local/lib
 LIB_BUILDDIR = lib
 
+.PHONY: all local appl lib local_target lib_prepare clean uninstall install
+
 all: $(TARGET)
 
 local: local_target

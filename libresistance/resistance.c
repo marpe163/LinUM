@@ -24,7 +24,7 @@ float calc_resistance(int count, char conn, float *array)
     int i;
 
     // Return -1 if NULL pointer or if number of resistors  are zero
-    if (array == NULL || count == 0) {
+    if (array == NULL || count <= 0) {
         return -1;
     }
 
@@ -32,22 +32,28 @@ float calc_resistance(int count, char conn, float *array)
     if (conn == 'S' || conn == 's')
     {
         for (i = 0; i < count; i++){
-            resistance += array[i];
+            if (array[i] >= 0)
+            {
+                resistance += array[i];
+            }
         }
     }
     // Calculate total resistance for parallel connected resistors if 'P' or 'p' are received
     else if (conn == 'P' || conn == 'p')
     {
-        i = 0;
-
         for (i = 0; i < count; i++){
-            if (array[i] == 0) {
-                // If one of the resistors  is zero in a parallel connection, the equivalence resistance is always zero
-                return 0;
+            if (array[i] >= 0)
+            {
+                if (array[i] == 0)
+                {
+                    // If one of the resistors  is zero in a parallel connection, the equivalence resistance is always zero
+                    return 0;
+                }
+                else
+                {
+                    resistance += 1 / array[i];
+                }
             }
-            else {
-                resistance += 1 / array[i];
-            } 
         }
         resistance = 1 / resistance;
     }

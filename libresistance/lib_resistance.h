@@ -7,10 +7,9 @@
     from a number of serial or parallel connected resistances.
 */
 
-#ifndef _LIB_DISTANCE_H_
-#define _LIB_DISTANCE_H_
+#ifndef _LIB_RESISTANCE_H_
+#define _LIB_RESISTANCE_H_
 
-    float
-    calc_resistance(int count, char conn, float *array);
+float calc_resistance(int count, char conn, float *array);
 
 #endif

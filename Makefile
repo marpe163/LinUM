@@ -59,28 +59,6 @@ uninstall: clean
 	-rm -f $(LIB_INSTDIR)/libcomponent.so
 
 install: $(TARGET)
-	@if [ -d $(BIN_INSTDIR) ]; \
-		then \
-		cp $(TARGET) $(BIN_INSTDIR) &&\
-		chmod a+x $(BIN_INSTDIR)/$(TARGET) &&\
-		chmod og-w $(BIN_INSTDIR)/$(TARGET) &&\
-		echo "Installed $(TARGET) in $(BIN_INSTDIR)" ;\
-	else \
-		echo "Directory $(BIN_INSTDIR) does not exist" ; false ;\
-	fi
-	@if [ -d $(LIB_INSTDIR) ]; \
-		then \
-		# cp lib/$(LIBS) $(LIB_INSTDIR) &&\
-		cp lib/libpower.so $(LIB_INSTDIR) &&\
-		cp lib/libresistance.so $(LIB_INSTDIR) &&\
-		cp lib/libcomponent.so $(LIB_INSTDIR) &&\
-		chmod a+x $(LIB_INSTDIR)/libpower.so &&\
-		chmod a+x $(LIB_INSTDIR)/libresistance.so &&\
-		chmod a+x $(LIB_INSTDIR)/libcomponent.so &&\
-		chmod og-w $(LIB_INSTDIR)/libpower.so &&\
-		chmod og-w $(LIB_INSTDIR)/libresistance.so &&\
-		chmod og-w $(LIB_INSTDIR)/libcomponent.so &&\
-		echo "Installed $(LIBS) in $(LIB_INSTDIR)" ;\
-	else \
-		echo "Directory $(LIB_INSTDIR) does not exist" ; false ;\
-	fi
+	-mkdir -p $(BIN_INSTDIR) $(LIB_INSTDIR)
+	-install $(TARGET) $(BIN_INSTDIR)
+	-install $(addprefix $(LIB_BUILDDIR)/,$(LIBS)) $(LIB_INSTDIR)

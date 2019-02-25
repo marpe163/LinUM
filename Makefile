@@ -1,4 +1,3 @@
-
 CC = gcc
 CFLAGS = -Wall -W -Wextra -pedantic
 TARGET = electrotest
@@ -66,7 +65,7 @@ install: $(TARGET)
 		echo "Installed $(TARGET) in $(BIN_INSTDIR)" ;\
 	else \
 		echo "Directory $(BIN_INSTDIR) does not exist" ; false ;\
-	fi 
+	fi
 	@if [ -d $(LIB_INSTDIR) ]; \
 		then \
 		# cp lib/$(LIBS) $(LIB_INSTDIR) &&\
@@ -82,4 +81,4 @@ install: $(TARGET)
 		echo "Installed $(LIBS) in $(LIB_INSTDIR)" ;\
 	else \
 		echo "Directory $(LIB_INSTDIR) does not exist" ; false ;\
-	fi 
+	fi

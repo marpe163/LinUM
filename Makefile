@@ -5,6 +5,7 @@ TARGET = electrotest
 LIBS = libresistance.so libpower.so libcomponent.so
 BIN_INSTDIR = /usr/local/bin
 LIB_INSTDIR = /usr/local/lib
+LIB_BUILDDIR = lib
 
 all: $(TARGET)
 
@@ -12,13 +13,16 @@ local: local_target
 
 appl: electrotest.o
 
-lib: $(LIBS)
+lib: libs_prepare $(LIBS)
 
 $(TARGET): lib appl
 	$(CC) -o $@ electrotest.o -L./lib -lcomponent -lpower -lresistance -Wl,-rpath,$(LIB_INSTDIR)
 
 local_target: lib appl
 	$(CC) -o $(TARGET) electrotest.o -L./lib -lcomponent -lpower -lresistance -Wl,-rpath,./lib
+
+libs_prepare:
+	mkdir -p $(LIB_BUILDDIR)
 
 libresistance.so: resistance.o
 	$(CC) -shared -fPIC -o lib/libresistance.so $<

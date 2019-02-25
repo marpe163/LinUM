@@ -2,9 +2,11 @@ CC = gcc
 CFLAGS = -Wall -W -Wextra -pedantic
 TARGET = electrotest
 LIBS = libresistance.so libpower.so libcomponent.so
-BIN_INSTDIR = /usr/local/bin
-LIB_INSTDIR = /usr/local/lib
 LIB_BUILDDIR = lib
+
+DESTDIR ?= /usr/local/bin
+BIN_INSTDIR = $(DESTDIR)/bin
+LIB_INSTDIR = $(DESTDIR)/lib
 
 .PHONY: all local appl lib local_target lib_prepare clean uninstall install
 

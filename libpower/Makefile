@@ -1,4 +1,4 @@
-CFLAGS = -O2 -W -Wall -Wextra -pedantic -std=c11
+CFLAGS = -O2 -W -Wall -Wextra -pedantic -std=c11 -D_GNU_SOURCE
 
 BIN = test
 SRC = $(wildcard *.c)

@@ -14,6 +14,11 @@ int main(void)
     assert(cmp(calc_power_i(5, 3), 15));
     assert(!cmp(calc_power_i(10, 3.3), 999));
 
+    assert(cmp(calc_power_r(5, 5), 5));
+    assert(cmp(calc_power_r(50, 1398), 1.788));
+    assert(!cmp(calc_power_r(32, 20), 10));
+}
+
 /**
  * Compare two floats by their string representation with three decimals.
  *

@@ -1,4 +1,5 @@
 CFLAGS = -O2 -W -Wall -Wextra -pedantic -std=c11 -D_GNU_SOURCE
+LIBS = -lm
 
 BIN = test
 SRC = $(wildcard *.c)
@@ -13,7 +14,7 @@ all: $(BIN)
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
 $(BIN): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $(LIBS) $^ -o $@
 
 clean:
 	rm -f $(OBJ) $(DEP) $(BIN)

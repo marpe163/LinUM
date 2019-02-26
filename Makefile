@@ -4,7 +4,7 @@ TARGET = electrotest
 LIBS = libresistance.so libpower.so libcomponent.so
 LIB_BUILDDIR = lib
 
-DESTDIR ?= /usr/local/bin
+DESTDIR ?= /usr/local
 BIN_INSTDIR = $(DESTDIR)/bin
 LIB_INSTDIR = $(DESTDIR)/lib
 

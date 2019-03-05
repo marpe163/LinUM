@@ -31,10 +31,10 @@ libresistance.so: resistance.o
 	$(CC) -shared -fPIC -o lib/libresistance.so $<
 
 libpower.so: libpower.o
-	$(CC) -shared -fPIC -lm -o lib/libpower.so $<
+	$(CC) -shared -fPIC -o lib/libpower.so $<
 
 libcomponent.so: libcomponent.o
-	$(CC) -shared -fPIC -o lib/libcomponent.so $<
+	$(CC) -shared -fPIC -o lib/libcomponent.so $< -lm
 
 electrotest.o: electrotest.c
 	$(CC) $(CFLAGS) -D_GNU_SOURCE -c $< -o electrotest.o
@@ -45,7 +45,7 @@ resistance.o: libresistance/resistance.c libresistance/lib_resistance.h
 libpower.o: libpower/libpower.c libpower/libpower.h
 	$(CC) $(CFLAGS) -c -fPIC $<
 
-libcomponent.o: scr/libcomponent/libcomponent.c
+libcomponent.o: libcomponent/libcomponent.c libcomponent/libcomponent.h
 	$(CC) $(CFLAGS) -DHAVE_MAIN -c -fPIC $<
 
 clean:

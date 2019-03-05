@@ -7,10 +7,7 @@
 
 #include "libpower/libpower.h"
 #include "libresistance/lib_resistance.h"
-
-/*
- * XXX: libcomponent.c needs a header!
- */
+#include "libcomponent/libcomponent.h"
 int e_resistance(float orig_resistance, float *res_array);
 
 static char *read_str(const char *prompt);
@@ -80,10 +77,18 @@ int main(void)
     /*
      * Calculate E12.
      */
-    printf("Ersättningsresistanser i E12-serien kopplade i serie:\n");
-    for (i = 0; i < e_resistance(resistance, e12); i++) {
-        printf("%.0f\n", e12[i]);
+    printf("Ersättningsresistanser i E12-serien kopplade i serie: ");
+    const int numOfESeriesResistors = e_resistance(resistance, e12);
+
+    for (i = 0; i < numOfESeriesResistors; i++) {
+        printf("%.0f", e12[i]);
+
+        if(i < numOfESeriesResistors - 1)
+        {
+           printf(", ");
+        }
     }
+    printf("\n");
 
     free(components);
 }

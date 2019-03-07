@@ -66,6 +66,7 @@ int main(void)
      * Calculate resistance.
      */
     resistance = calc_resistance(components_count, connection, components);
+    free(components);
     printf("Ersättningsresistans:\n%.1f ohm\n", resistance);
 
     /*
@@ -89,8 +90,6 @@ int main(void)
         }
     }
     printf("\n");
-
-    free(components);
 }
 
 /**

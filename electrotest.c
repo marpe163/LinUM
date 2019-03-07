@@ -83,18 +83,10 @@ int main(void)
     /*
      * Calculate E12.
      */
-    printf("Ersättningsresistanser i E12-serien kopplade i serie: ");
-    const int numOfESeriesResistors = e_resistance(resistance, e12);
-
-    for (i = 0; i < numOfESeriesResistors; i++) {
-        printf("%.0f", e12[i]);
-
-        if(i < numOfESeriesResistors - 1)
-        {
-           printf(", ");
-        }
+    printf("Ersättningsresistanser i E12-serien kopplade i serie:\n");
+    for (i = 0; i < e_resistance(resistance, e12); i++) {
+        printf("%.0f\n", e12[i]);
     }
-    printf("\n");
 }
 
 /**

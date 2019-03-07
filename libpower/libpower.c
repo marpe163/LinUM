@@ -14,10 +14,13 @@
  *
  * @param volt          The voltage of the circuit.
  * @param resistance    The resistance of the circuit.
- * @return              The power of the circuit.
+ * @return              The power of the circuit, or 0 if resistance is 0.
  */
 float calc_power_r(float volt, float resistance)
 {
+    if (fabsf(resistance) == 0) {
+        return 0;
+    }
     return powf(volt, 2) / resistance;
 }
 

@@ -17,6 +17,8 @@ int main(void)
     assert(cmp(calc_power_r(5, 5), 5));
     assert(cmp(calc_power_r(50, 1398), 1.788));
     assert(!cmp(calc_power_r(32, 20), 10));
+    assert(cmp(calc_power_r(32, 0), 0));
+    assert(cmp(calc_power_r(32, -0), 0));
 }
 
 /**

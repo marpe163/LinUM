@@ -67,6 +67,11 @@ int main(void)
      */
     resistance = calc_resistance(components_count, connection, components);
     free(components);
+
+    if (resistance == -1) {
+        printf("Felaktig data.\n");
+        return EXIT_FAILURE;
+    }
     printf("Ersättningsresistans:\n%.1f ohm\n", resistance);
 
     /*

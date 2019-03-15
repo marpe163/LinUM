@@ -12,18 +12,6 @@ typedef struct e12_series_
 static e12_series generate_e12_series(const float orig_resistance);
 int e_resistance(float orig_resistance, float *res_array );
 
-#ifndef HAVE_MAIN
-int main()
-{
-    float res[3];
-    int count = e_resistance(1201.01f, res);
-    for(int i=0;i<3;i++)
-    {
-        printf("Resistor %d: %f\n", i+1,res[i]);
-    }
-   return 0;
-}
-#endif
 
 int e_resistance(float orig_resistance, float *res_array )
 {

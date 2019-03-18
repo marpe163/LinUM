@@ -1,8 +1,9 @@
 CC = gcc
 CFLAGS = -Wall -W -Wextra -pedantic
-TARGET = electrotest
+TARGET = bin/electrotest
 LIBS = libresistance.so libpower.so libcomponent.so
 LIB_BUILDDIR = lib
+BIN_BUILDDIR = bin
 
 DESTDIR ?= /usr/local
 BIN_INSTDIR = $(DESTDIR)/bin
@@ -19,13 +20,11 @@ appl: electrotest.o
 lib: libs_prepare $(LIBS)
 
 $(TARGET): lib appl
-	$(CC) -o $@ electrotest.o -L./lib -lcomponent -lpower -lresistance -Wl,-rpath,$(LIB_INSTDIR)
-
-local_target: lib appl
-	$(CC) -o $(TARGET) electrotest.o -L./lib -lcomponent -lpower -lresistance -Wl,-rpath,./lib
+	$(CC) -o $(TARGET) electrotest.o -L./lib -lcomponent -lpower -lresistance -Wl,-rpath,../lib
 
 libs_prepare:
 	mkdir -p $(LIB_BUILDDIR)
+	mkdir -p $(BIN_BUILDDIR)
 
 libresistance.so: resistance.o
 	$(CC) -shared -fPIC -o lib/libresistance.so $<

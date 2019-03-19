@@ -9,11 +9,9 @@ DESTDIR ?= /usr/local
 BIN_INSTDIR = $(DESTDIR)/bin
 LIB_INSTDIR = $(DESTDIR)/lib
 
-.PHONY: all local appl lib local_target lib_prepare clean uninstall install
+.PHONY: all appl lib lib_prepare clean uninstall install
 
 all: $(TARGET)
-
-local: local_target
 
 appl: electrotest.o
 

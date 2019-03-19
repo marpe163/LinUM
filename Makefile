@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -W -Wextra -pedantic
-TARGET = bin/electrotest
+TARGET = electrotest
 LIBS = libresistance.so libpower.so libcomponent.so
 LIB_BUILDDIR = lib
 BIN_BUILDDIR = bin
@@ -18,7 +18,8 @@ appl: electrotest.o
 lib: libs_prepare $(LIBS)
 
 $(TARGET): lib appl
-	$(CC) -o $(TARGET) electrotest.o -L./lib -lcomponent -lpower -lresistance \
+	$(CC) -o $(BIN_BUILDDIR)/$(TARGET) electrotest.o -L./lib \
+		-lcomponent -lpower -lresistance \
 		-ldl -Wl,--enable-new-dtags -Wl,-rpath,\$$ORIGIN/../lib
 
 libs_prepare:
@@ -47,8 +48,8 @@ libcomponent.o: libcomponent/libcomponent.c libcomponent/libcomponent.h
 	$(CC) $(CFLAGS) -DHAVE_MAIN -c -fPIC $<
 
 clean:
-	-rm -f *.o $(TARGET)
-	-rm -f lib/*.so
+	-rm -f *.o $(BIN_BUILDDIR)/$(TARGET)
+	-rm -f $(LIB_BUILDDIR)/*.so
 
 uninstall: clean
 	-rm -f $(BIN_INSTDIR)/$(TARGET)
@@ -58,5 +59,5 @@ uninstall: clean
 
 install: $(TARGET)
 	-mkdir -p $(BIN_INSTDIR) $(LIB_INSTDIR)
-	-install $(TARGET) $(BIN_INSTDIR)
+	-install $(BIN_BUILDDIR)/$(TARGET) $(BIN_INSTDIR)
 	-install $(addprefix $(LIB_BUILDDIR)/,$(LIBS)) $(LIB_INSTDIR)

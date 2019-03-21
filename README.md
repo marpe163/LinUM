@@ -44,3 +44,32 @@ måste skapa en katalogstruktur som motsvarar katalogstrukturen vid
 installation.  Det vill säga, `electrotest` måste placeras så att
 biblioteken finns i syskonkatalogen `lib` -- vilket ej är fallet om
 `electrotest` byggs i `./`.
+
+
+
+Del 2.
+
+Uppdateringen i den här kompletterande inlämningen består endast av ändringar i Makefile. Istället för en hårdkodad absolut
+sökäg till de dynamiska biblioteken som ska länkas in så har vi infört variablen ORIGIN, se nedan, som innebär att det blir
+en relativ sökväk till biblioteksfilerna, beroende på var ifrån binären exekveras. För att få den relativa sökvägen till 
+biblioteken att fungera likadant för både ett lokalt bygge som för installation av binärerna så har en ny underkatalog skapats,
+bin, där binärfilen sparas för ett lokalt bygge.
+
+Bibliotek och huvudprogram byggdes och länkades var för sig, och för biblioteken länkades dessa till en .so fil med liknande 
+kommando och växlar som i del 1 ovan, men .so filen placerades i en underkatalog, lib.
+För att länka ihop samtliga bibliotek och huvudprogrammet användes följande kommando:
+$(CC) -o $(BIN_BUILDDIR)/$(TARGET) electrotest.o -L./lib -lcomponent -lpower -lresistance -Wl,-rpath,\$$ORIGIN/../lib
+Där olika delar och flaggor betyder:
+$(CC)                        - gcc kompilerare
+-o $(BIN_BUILDDIR)/$(TARGET) - Outputfil är namnet på target, vilket är electrotest och placeras i underkatalogen bin
+electrotest.o                - Namnet på huvudprogrammets objektfil
+-L./lib                      - Pekar ut var biblioteken finns som ska länkas in i programmet, i det här fallet i katalogen lib
+-lcomponent                  - libcomponent.so som länkas med
+-lpower                      - libpower.so som länkas med
+-lresistance                 - libresistance.so som länkas med
+-Wl,-rpath,\$$ORIGIN/../lib  - -Wl betyder att en option skickas till länkaren, i detta fall -rpath, som betyder att de dynamiska 
+                               biblioteken kommer att finnas i följande biblioteket. $ORIGIN sätts automatiskt till binärens katalog
+                               och vid körning så söks biblioteken i ../lib relativt till sökvägen för $ORIGIN.
+                               \\$ i ORIGIN betyder att variabeln inte expanderas vid make, utan den skickas med till 
+                               binärens dynamiska sektion och expanderas vid körning.
+

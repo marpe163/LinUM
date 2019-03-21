@@ -19,8 +19,7 @@ lib: libs_prepare $(LIBS)
 
 $(TARGET): lib appl
 	$(CC) -o $(BIN_BUILDDIR)/$(TARGET) electrotest.o -L./lib \
-		-lcomponent -lpower -lresistance \
-		-ldl -Wl,--enable-new-dtags -Wl,-rpath,\$$ORIGIN/../lib
+		-lcomponent -lpower -lresistance -Wl,-rpath,\$$ORIGIN/../lib
 
 libs_prepare:
 	mkdir -p $(LIB_BUILDDIR)
